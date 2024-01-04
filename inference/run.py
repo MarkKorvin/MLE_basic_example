@@ -93,12 +93,13 @@ def store_results(results: pd.DataFrame, path: str = None) -> None:
 def main():
     """Main function"""
     configure_logging()
+    args = parser.parse_args()
 
     model = get_model_by_path(get_latest_model_path())
-    infer_file = parser.parse_args().infer_file
+    infer_file = args.infer_file
     infer_data = get_inference_data(os.path.join(DATA_DIR, infer_file))
     results = predict_results(model, infer_data)
-    store_results(results, parser.parse_args().out_path)
+    store_results(results, args.out_path)
 
     logging.info(f'Prediction results: {results}')
 

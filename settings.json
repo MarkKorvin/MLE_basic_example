@@ -9,11 +9,11 @@
     },
     "train": {
         "table_name": "xor_train_data.csv",
-        "data_sample": 100,
-        "model": "decision_tree"
+        "data_sample": 50,
+        "test_size": 0.3
     },
     "inference": {
         "inp_table_name": "xor_inference_data.csv",
-        "model_name": "latest" 
+        "model_name": "prod_model.pickle" 
     }
 }
