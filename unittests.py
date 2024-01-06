@@ -6,6 +6,7 @@ import json
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(ROOT_DIR))
+CONF_FILE = os.getenv('CONF_PATH')
 
 from training.train import DataProcessor, Training 
 
@@ -13,7 +14,7 @@ from training.train import DataProcessor, Training
 class TestDataProcessor(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        with open("settings.json", "r") as file:
+        with open(CONF_FILE, "r") as file:
             conf = json.load(file)
         cls.data_dir = conf['general']['data_dir']
         cls.train_path = os.path.join(cls.data_dir, conf['train']['table_name'])

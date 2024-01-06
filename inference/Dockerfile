@@ -2,7 +2,9 @@
 # Start from a base Python image
 FROM python:3.10
 
-ARG model_name="prod_model.pickle"
+ARG model_name=prod_model.pickle
+ARG settings_name=settings.json
+ENV CONF_FILE=${settings_name}
 
 WORKDIR /app
 
@@ -15,9 +17,9 @@ COPY ../models/${model_name} /app/models/${model_name}.pickle
 # Copy the code itself
 COPY inference /app/inference
 
-# Copy utils.py
+# Copy usefull scripts and configs
 COPY ../utils.py /app
-COPY ../settings.json /app
+COPY ../${CONF_FILE} /app
 
 # Install any necessary packages listed in requirements.txt
 COPY ../requirements.txt ./

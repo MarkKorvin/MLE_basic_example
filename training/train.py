@@ -18,11 +18,13 @@ from sklearn.metrics import f1_score
 # Adds the root directory to system path
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(ROOT_DIR))
+CONF_FILE = os.getenv('CONF_PATH')
+
 
 from utils import get_project_dir, configure_logging
 
 # Loads configuration settings from JSON
-with open("settings.json", "r") as file:
+with open(CONF_FILE, "r") as file:
     conf = json.load(file)
 
 # Defines paths
