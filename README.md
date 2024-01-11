@@ -52,7 +52,7 @@ docker run -it training_image /bin/bash
 ```
 Then, move the trained model from the directory inside the Docker container `/app/models` to the local machine using:
 ```bash
-docker cp <container_id>:/app/models/<model_name>.pickle /<path_to_your_local_model_directory>
+docker cp <container_id>:/app/models/<model_name>.pickle ./models
 ```
 Replace `<container_id>` with your running Docker container ID and `<model_name>.pickle` with your model's name.
 
