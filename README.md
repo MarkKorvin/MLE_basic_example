@@ -32,7 +32,7 @@ MLE_basic_example
 ## Settings:
 The configurations for the project are managed using the `settings.json` file. It stores important variables that control the behaviour of the project. Examples could be the path to certain resource files, constant values, hyperparameters for an ML model, or specific settings for different environments. Before running the project, ensure that all the paths and parameters in `settings.json` are correctly defined.
 
-Keep in mind that you may need to pass the path to your config to the scripts. For this you may create .env file or manually initialize env variable `CONF_FILE=settings.json`
+Keep in mind that you may need to pass the path to your config to the scripts. For this you may create .env file or manually initialize env variable `CONF_PATH=settings.json`
 
 ## Data:
 Data is the cornerstone of any Machine Learning project. For generating the data, use the script located at `data_process/data_generation.py`. The generated data is used to train the model and to test the inference. Following the approach of separating concerns, the responsibility of data generation lies with this script.
