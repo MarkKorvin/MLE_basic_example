@@ -14,6 +14,9 @@ from datetime import datetime
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
+import mlflow
+
+mlflow.autolog()
 
 # Adds the root directory to system path
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))

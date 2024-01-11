@@ -4,7 +4,7 @@ FROM python:3.10
 
 ARG model_name=prod_model.pickle
 ARG settings_name=settings.json
-ENV CONF_FILE=${settings_name}
+ENV CONF_PATH=${settings_name}
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ COPY inference /app/inference
 
 # Copy usefull scripts and configs
 COPY ../utils.py /app
-COPY ../${CONF_FILE} /app
+COPY ../${CONF_PATH} /app
 
 # Install any necessary packages listed in requirements.txt
 COPY ../requirements.txt ./
