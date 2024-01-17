@@ -4,7 +4,7 @@ Welcome to the `ML_basic_example` project. It is an ideal template for starting 
 ## Prerequisites
 
 Before diving into the detailed steps of setting up and using this project, there are few important prerequisites or requirements that need to be addressed. These prerequisites ensure that your local development environment is ready and capable of efficiently running and supporting the project. 
-Remember, if you encounter problems installing Docker Desktop or MLHub, you may skip these steps, modify your code and work directly on your local machine using Python and Git.
+Remember, if you encounter problems installing Docker Desktop or MLFlow, you may skip these steps, modify your code and work directly on your local machine using Python and Git.
 
 ### Forking and Cloning from GitHub
 To start using this project, you first need to create a copy on your own GitHub account by 'forking' it. On the main page of the `ML_basic_example` project, click on the 'Fork' button at the top right corner. This will create a copy of the project under your own account. You can then 'clone' it to your local machine for personal use. To do this, click the 'Code' button on your forked repository, copy the provided link, and use the `git clone` command in your terminal followed by the copied link. This will create a local copy of the repository on your machine, and you're ready to start!
@@ -20,17 +20,20 @@ Once the installation is completed, you can open Docker Desktop to confirm it's 
 
 Keep in mind that Docker requires you to have virtualization enabled in your system's BIOS settings. If you encounter issues, please verify your virtualization settings, or refer to Docker's installation troubleshooting guide. Now you're prepared to work with Dockerized applications!
 
-### Installing MLHub on Windows
+### Installing MLFlow on Windows
 
-To install MLHub on a Windows local machine, you can leverage the Python package installer, pip. Open the command prompt (search for `cmd` in the Start menu) and use the following command:
+MLFlow can be easily installed on a Windows local machine using the pip, the Python package installer. To do so, open the command prompt (you can find it by searching for `cmd` in the Start menu) and type the following command:
 
 ```python
-pip install mlhub
+pip install mlflow
 ```
 
-Upon successful installation, you're all set to use MLHub on your local Windows machine to manage and deploy ML models. For more detailed usage, refer to official MLHub documentation or use the `ml --help` command.
+After the successful installation, you can start managing and deploying your ML models with MLFlow. For further information on how to use MLFlow at its best, refer to the official MLFlow documentation or use the `mlflow --help` command.
 
-If you have problems with the installation, just comment the according lines in the train.py and requirements.txt documents.
+Should you encounter any issues during the installation, you can bypass them by commenting out the corresponding lines in the `train.py` and `requirements.txt` files.
+
+To run MLFlow, type `mlflow ui` in your terminal and press enter. If it doesn't work, you may also try `python -m mlflow ui`  This will start the MLFlow tracking UI, typically running on your localhost at port 5000. You can then access the tracking UI by opening your web browser and navigating to `http://localhost:5000`.
+
 
 ## Project structure:
 
