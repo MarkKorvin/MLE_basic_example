@@ -14,15 +14,17 @@ from datetime import datetime
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
-import mlflow
 
+# Comment this lines if you have problems with MLFlow installation
+import mlflow
 mlflow.autolog()
 
 # Adds the root directory to system path
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(ROOT_DIR))
-CONF_FILE = os.getenv('CONF_PATH')
 
+# Change to CONF_FILE = "settings.json" if you have problems with env variables
+CONF_FILE = os.getenv('CONF_PATH') 
 
 from utils import get_project_dir, configure_logging
 

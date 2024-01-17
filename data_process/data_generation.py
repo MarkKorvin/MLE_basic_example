@@ -19,6 +19,8 @@ from utils import singleton, get_project_dir, configure_logging
 DATA_DIR = os.path.abspath(os.path.join(ROOT_DIR, '../data'))
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
+
+# Change to CONF_FILE = "settings.json" if you have problems with env variables
 CONF_FILE = os.getenv('CONF_PATH')
 
 # Load configuration settings from JSON
