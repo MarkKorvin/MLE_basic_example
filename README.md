@@ -108,6 +108,11 @@ docker build -f ./inference/Dockerfile --build-arg model_name=<model_name>.pickl
 ```bash
 docker run -v /path_to_your_local_model_directory:/app/models -v /path_to_your_input_folder:/app/input -v /path_to_your_output_folder:/app/output inference_image
 ```
+- Or you may run it with the attached terminal using the following command:
+```bash
+docker run -it inference_image /bin/bash  
+```
+After that ensure that you have your results in the `results` directory in your inference container.
 
 2. Alternatively, you can also run the inference script locally:
 
