@@ -24,4 +24,4 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Train the model
-RUN python3 training/train.py
+CMD ["python3", "training/train.py"]

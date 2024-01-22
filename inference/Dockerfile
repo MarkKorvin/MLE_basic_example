@@ -26,4 +26,5 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Train the model
-RUN python3 inference/run.py
+CMD ["python3", "inference/run.py"]
+# -u?
