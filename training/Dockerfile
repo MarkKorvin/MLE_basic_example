@@ -23,8 +23,5 @@ COPY ${CONF_PATH} /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Generate data
-CMD ["python3", "data_process/data_generation.py"]
-
 # Train the model
 CMD ["python3", "-u", "training/train.py"]
