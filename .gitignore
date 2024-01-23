@@ -10,7 +10,6 @@ results/
 mlruns/
 
 # File Extensions
-*.csv
 *.pickle
 *.pyc
 
