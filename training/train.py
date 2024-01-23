@@ -12,13 +12,14 @@ import pandas as pd
 import time
 from datetime import datetime
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.metrics import f1_score
 from sklearn.preprocessing import StandardScaler
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
 from copy import deepcopy
 import numpy as np
+import joblib
 
 # Comment this lines if you have problems with MLFlow installation
 import mlflow
@@ -32,7 +33,7 @@ sys.path.append(os.path.dirname(ROOT_DIR))
 # Change to CONF_FILE = "settings.json" if you have problems with env variables
 CONF_FILE = os.getenv("CONF_PATH")
 
-from utils import get_project_dir, configure_logging
+from utils import get_project_dir, configure_logging, Neural_clf
 
 # Loads configuration settings from JSON
 with open(CONF_FILE, "r") as file:
@@ -67,26 +68,9 @@ class DataProcessor:
         return pd.read_csv(path)
 
 
-class NNmodel(nn.Module):
-    def __init__(self):
-        super(NNmodel, self).__init__()
-        self.fc1 = nn.Linear(in_features=4, out_features=8)
-        self.fc2 = nn.Linear(in_features=8, out_features=8)
-        self.fc3 = nn.Linear(in_features=8, out_features=3)
-        self.relu = nn.ReLU()
-        self.softmax = nn.Softmax(dim=1)
-
-    def forward(self, x):
-        x = self.relu(self.fc1(x))
-        x = self.relu(self.fc2(x))
-        x = self.relu(self.fc3(x))
-        x = self.softmax(x)
-        return x
-
-
 class Training:
     def __init__(self) -> None:
-        self.model = NNmodel()
+        self.model = Neural_clf()
 
     def run_training(
         self, df: pd.DataFrame, out_path: str = None, test_size: float = 0.33
@@ -107,14 +91,14 @@ class Training:
             y_test_tensors,
             conf["train"]["batch_size"],
         )
-        start_time = time.time()
+        tic = time.time()
         self.model = self.train_model(
             train_dataloader=train_dataset,
             validation_dataloader=test_dataset,
             epochs=conf["train"]["epochs"],
         )
-        end_time = time.time()
-        logging.info(f"Training completed in {end_time - start_time} seconds.")
+        toc = time.time()
+        logging.info(f"Training done in {(toc - tic):.2f} seconds.")
         self.save(out_path)
 
     def data_split(self, df: pd.DataFrame, test_size: float = 0.33) -> tuple:
@@ -159,6 +143,7 @@ class Training:
         scaler = StandardScaler()
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
+        joblib.dump(scaler, os.path.join(DATA_DIR, 'trainig_scaler.gz'))
         return X_train, X_test
 
     def evaluate_model(self, validation_dataloader):
@@ -217,17 +202,14 @@ class Training:
         logging.info("Saving the model")
         if not os.path.exists(MODEL_DIR):
             os.makedirs(MODEL_DIR)
-
         if not path:
             path = os.path.join(
                 MODEL_DIR,
-                datetime.now().strftime(conf["general"]["datetime_format"]) + ".pickle",
+                datetime.now().strftime(conf["general"]["datetime_format"]) + ".pt",
             )
         else:
             path = os.path.join(MODEL_DIR, path)
-
-        with open(path, "wb") as f:
-            pickle.dump(self.model, f)
+        torch.save(self.model, path)
 
 
 def main():

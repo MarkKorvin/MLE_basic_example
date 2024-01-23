@@ -57,10 +57,10 @@ def get_iris():
     train_data.to_csv(TRAIN_PATH, index=False)
     print(f"Training set saved to {TRAIN_PATH}")
 
-    # Save test set without target
-    test_data = X_test
-    test_data.to_csv(INFERENCE_PATH, index=False)
-    print(f"Test set saved to {INFERENCE_PATH}")
+    # Save test set without target: for later inference. this is not for evaluation. but "usage"
+    infer_data = X_test
+    infer_data.to_csv(INFERENCE_PATH, index=False)
+    print(f"Data for inference saved to {INFERENCE_PATH}")
 
 # Main execution
 if __name__ == "__main__":
