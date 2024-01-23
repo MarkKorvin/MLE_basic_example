@@ -15,7 +15,6 @@
         "epochs": 75
     },
     "inference": {
-        "inp_table_name": "iris_infer.csv",
-        "model_name": "prod_model.pickle" 
+        "inp_table_name": "iris_infer.csv" 
     }
 }
