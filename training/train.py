@@ -207,7 +207,7 @@ class Training:
             if best_f1 < f1_sc:
                 best_f1 = f1_sc
                 best_model = deepcopy(self.model)
-            print(
+            logging.info(
                 f"Epoch {epoch+1}, Avg validation loss: {validation_loss}, F1: {f1_sc}, acc: {accuracy}"
             )
         logging.info(f"Best F1: {best_f1}")
