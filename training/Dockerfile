@@ -27,4 +27,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 CMD ["python3", "data_process/data_generation.py"]
 
 # Train the model
-CMD ["python3", "training/train.py"]
+CMD ["python3", "-u", "training/train.py"]
