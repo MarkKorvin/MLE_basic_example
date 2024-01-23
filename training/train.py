@@ -143,7 +143,7 @@ class Training:
         scaler = StandardScaler()
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
-        joblib.dump(scaler, os.path.join(DATA_DIR, 'trainig_scaler.gz'))
+        joblib.dump(scaler, os.path.join(DATA_DIR, "trainig_scaler.gz"))
         return X_train, X_test
 
     def evaluate_model(self, validation_dataloader):
