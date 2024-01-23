@@ -52,9 +52,9 @@ def get_latest_model_path() -> str:
     for dirpath, dirnames, filenames in os.walk(MODEL_DIR):
         for filename in filenames:
             if not latest or datetime.strptime(
-                latest, conf["general"]["datetime_format"] + ".pickle"
+                latest, conf["general"]["datetime_format"] + ".pt"
             ) < datetime.strptime(
-                filename, conf["general"]["datetime_format"] + ".pickle"
+                filename, conf["general"]["datetime_format"] + ".pt"
             ):
                 latest = filename
     return os.path.join(MODEL_DIR, latest)
