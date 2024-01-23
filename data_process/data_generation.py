@@ -5,6 +5,8 @@ import logging
 import os
 import sys
 import json
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
 
 # Create logger
 logger = logging.getLogger()
@@ -33,34 +35,35 @@ DATA_DIR = get_project_dir(conf['general']['data_dir'])
 TRAIN_PATH = os.path.join(DATA_DIR, conf['train']['table_name'])
 INFERENCE_PATH = os.path.join(DATA_DIR, conf['inference']['inp_table_name'])
 
-# Singleton class for generating XOR data set
+# Singleton class for generating Iris data set
 @singleton
-class XorSetGenerator():
+class IrisSetGenerator():
     def __init__(self):
         self.df = None
 
-    # Method to create the XOR data
-    def create(self, len: int, save_path: os.path, is_labeled: bool = True):
-        logger.info("Creating XOR dataset...")
-        self.df = self._generate_features(len)
-        if is_labeled:
-            self.df = self._generate_target(self.df)
-        if save_path:
-            self.save(self.df, save_path)
-        return self.df
+    # Method to create the Iris data
+    def create(self, save_path_train: os.path, save_path_inference: os.path):
+        logger.info("Creating Iris dataset...")
+        self.df = self._load_iris_data()
+        train_df, inference_df = self._split_data(self.df)
+        if save_path_train:
+            self.save(train_df, save_path_train)
+        if save_path_inference:
+            self.save(inference_df, save_path_inference)
+        return train_df, inference_df
 
-    # Method to generate features
-    def _generate_features(self, n: int) -> pd.DataFrame:
-        logger.info("Generating features...")
-        x1 = np.random.choice([True, False], size=n)
-        x2 = np.random.choice([True, False], size=n)
-        return pd.DataFrame(list(zip(x1, x2)), columns=['x1', 'x2'])
-
-    # Method to generate target
-    def _generate_target(self, df: pd.DataFrame) -> pd.DataFrame:
-        logger.info("Generating target...")
-        df['y'] = np.logical_xor(df['x1'], df['x2'])
+    # Method to load Iris data
+    def _load_iris_data(self) -> pd.DataFrame:
+        iris = datasets.load_iris()
+        df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+        df['target'] = iris.target
         return df
+
+    # Method to split data into training and inference sets
+    def _split_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        logger.info("Splitting data into training and inference sets...")
+        train_df, inference_df = train_test_split(df, test_size=0.2, random_state=42)
+        return train_df, inference_df
     
     # Method to save data
     def save(self, df: pd.DataFrame, out_path: os.path):
@@ -71,7 +74,6 @@ class XorSetGenerator():
 if __name__ == "__main__":
     configure_logging()
     logger.info("Starting script...")
-    gen = XorSetGenerator()
-    gen.create(len=256, save_path=TRAIN_PATH)
-    gen.create(len=64, save_path=INFERENCE_PATH, is_labeled=False)
+    gen = IrisSetGenerator()
+    gen.create(save_path_train=TRAIN_PATH, save_path_inference=INFERENCE_PATH)
     logger.info("Script completed successfully.")
